@@ -92,6 +92,12 @@
               "**/node_modules/**"
             ]
           }
+        },
+        "defaults":{
+          "component": {
+            "inlineStyle": true,
+            "inlineTemplate": true
+          }
         }
       }
     },
