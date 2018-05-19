@@ -1,25 +1,51 @@
-import { TimeboxListService } from './timebox-list.service';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TimeboxListComponent } from './timebox-list/timebox-list.component';
-import { TimeboxCardComponent } from './timebox-card/timebox-card.component';
-import { TimeboxNewComponent } from './timebox-new/timebox-new.component';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms"
+import { RouterModule, Routes } from "@angular/router";
 
-import { MatCardModule, MatToolbarModule, MatButtonModule } from "@angular/material";
+import { TimeboxListService } from "./timebox-list.service";
+
+import { TimeboxListComponent } from "./timebox-list/timebox-list.component";
+import { TimeboxCardComponent } from "./timebox-card/timebox-card.component";
+import { TimeboxNewComponent } from "./timebox-new/timebox-new.component";
+
+import {
+  MatCardModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatInputModule,
+  MatBadgeModule,
+  MatFormFieldModule
+} from "@angular/material";
+import { TimeboxerComponent } from './timeboxer/timeboxer.component';
+import { TimerInputComponent } from './timer-input/timer-input.component';
 
 const materialModule = [
   MatCardModule,
   MatToolbarModule,
-  MatButtonModule
-]
+  MatButtonModule,
+  MatButtonModule,
+  MatInputModule,
+  MatBadgeModule,
+  MatFormFieldModule
+];
+
+const routes: Routes = [
+  { path: "list", component: TimeboxListComponent },
+  { path: "new", component: TimeboxNewComponent },
+  { path: "**", redirectTo: "list" }
+];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ...materialModule
-  ],
+  imports: [CommonModule, ReactiveFormsModule, ...materialModule, RouterModule.forRoot(routes)],
   providers: [TimeboxListService],
-  declarations: [TimeboxListComponent, TimeboxCardComponent, TimeboxNewComponent],
-  exports: [TimeboxListComponent]
+  declarations: [
+    TimeboxListComponent,
+    TimeboxCardComponent,
+    TimeboxNewComponent,
+    TimeboxerComponent,
+    TimerInputComponent
+  ],
+  exports: [TimeboxerComponent]
 })
-export class TimeboxerModule { }
+export class TimeboxerModule {}

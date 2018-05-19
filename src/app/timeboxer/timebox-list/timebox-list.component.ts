@@ -1,6 +1,7 @@
 import { TimeboxListService } from './../timebox-list.service';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'timebox-list',
@@ -17,13 +18,13 @@ import { Observable } from 'rxjs';
 export class TimeboxListComponent implements OnInit {
 
   public timeboxList: Observable<any>;
-  constructor(private _timeboxlistSvc: TimeboxListService) { }
+  constructor(private _timeboxlistSvc: TimeboxListService, private router: Router) { }
 
   ngOnInit() {
     this.timeboxList = this._timeboxlistSvc.timeboxList$
   }
 
   add() {
-
+    this.router.navigate(['new']);
   }
 }
