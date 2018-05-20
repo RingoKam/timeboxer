@@ -1,29 +1,36 @@
-import { TimeboxerModel } from './timeboxer-model';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { TimeboxerModel } from "./timeboxer-model";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class TimeboxListService {
+  constructor() {}
 
-  constructor() { }
-
-  private timeboxList: BehaviorSubject<any[]> = new BehaviorSubject<any>([1,2,3,4,5])
+  private timeboxList: BehaviorSubject<{
+    [id: string]: TimeboxerModel;
+  }> = new BehaviorSubject<any>({});
   public timeboxList$ = this.timeboxList.asObservable();
-  
+
   add(timeboxer: TimeboxerModel) {
-    const current = this.timeboxList.getValue(); 
-    this.timeboxList.next([...current, timeboxer]);
+    const current = this.timeboxList.getValue();
+    const ids = Object.keys(current)
+      .sort()
+      .reverse();
+    const id = ids[0] ? ids[0] + 1 : 0;
+    this.timeboxList.next({ ...current, ...{ id: timeboxer } });
   }
 
-  remove(index) {
+  remove(id) {
     const current = this.timeboxList.getValue();
-    const updated = [current.slice(0, index), current.slice(index, current.length - 1)];
-    this.timeboxList.next(updated);
+    delete current[id];
+    this.timeboxList.next(current);
   }
-  
-  update(timeboxer) {
+
+  update(id, timeboxer: TimeboxerModel) {
     const current = this.timeboxList.getValue();
+    current[id] = {...current[id], ...timeboxer};
+    this.timeboxList.next(current);
   }
 }

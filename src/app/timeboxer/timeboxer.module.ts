@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule } from "@angular/forms"
+import { ReactiveFormsModule, FormsModule } from "@angular/forms"
 import { RouterModule, Routes } from "@angular/router";
 
 import { TimeboxListService } from "./timebox-list.service";
@@ -19,6 +19,7 @@ import {
 } from "@angular/material";
 import { TimeboxerComponent } from './timeboxer/timeboxer.component';
 import { TimerInputComponent } from './timer-input/timer-input.component';
+import { PlayerComponent } from './player/player.component';
 
 const materialModule = [
   MatCardModule,
@@ -37,14 +38,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, ...materialModule, RouterModule.forRoot(routes)],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, ...materialModule, RouterModule.forRoot(routes)],
   providers: [TimeboxListService],
   declarations: [
     TimeboxListComponent,
     TimeboxCardComponent,
     TimeboxNewComponent,
     TimeboxerComponent,
-    TimerInputComponent
+    TimerInputComponent,
+    PlayerComponent
   ],
   exports: [TimeboxerComponent]
 })

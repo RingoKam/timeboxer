@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { routerTransition } from '../router.animation';
 import { Router, ActivatedRoute, UrlSegment } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
   selector: 'timeboxer',
   template: `
     <main [@routerTransition]="url">
-      <router-outlet (activate)="routeChange($event)" ></router-outlet>
+      <router-outlet (activate)="routeChange($event)"></router-outlet>
     </main>
   `,
   styles: [],
   animations: [ routerTransition ],
-
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimeboxerComponent implements OnInit {
 
@@ -23,6 +23,10 @@ export class TimeboxerComponent implements OnInit {
   }
 
   routeChange(e) {
-    this.url = e.router.url
+    if(e && e.router.url) {
+      this.url = e.router.url.slice(1) == "list" ? "left" : "right";
+      
+      console.log(this.url);
+    }
   }
 }
