@@ -10,7 +10,11 @@ import { Observable } from 'rxjs';
       <router-outlet (activate)="routeChange($event)"></router-outlet>
     </main>
   `,
-  styles: [],
+  styles: [`
+    main {
+      height: 100%
+    }
+  `],
   animations: [ routerTransition ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -23,9 +27,8 @@ export class TimeboxerComponent implements OnInit {
   }
 
   routeChange(e) {
-    if(e && e.router.url) {
+    if(e && e.router) {
       this.url = e.router.url.slice(1) == "list" ? "left" : "right";
-      
       console.log(this.url);
     }
   }

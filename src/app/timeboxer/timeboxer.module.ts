@@ -15,11 +15,15 @@ import {
   MatButtonModule,
   MatInputModule,
   MatBadgeModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatExpansionModule,
+  MatChipsModule,
+  MatIconModule
 } from "@angular/material";
 import { TimeboxerComponent } from './timeboxer/timeboxer.component';
 import { TimerInputComponent } from './timer-input/timer-input.component';
 import { PlayerComponent } from './player/player.component';
+import { DurationPipe } from './duration.pipe';
 
 const materialModule = [
   MatCardModule,
@@ -28,12 +32,16 @@ const materialModule = [
   MatButtonModule,
   MatInputModule,
   MatBadgeModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatExpansionModule,
+  MatChipsModule,
+  MatIconModule
 ];
 
 const routes: Routes = [
   { path: "list", component: TimeboxListComponent },
   { path: "new", component: TimeboxNewComponent },
+  { path: "player", component: PlayerComponent },
   { path: "**", redirectTo: "list" }
 ];
 
@@ -46,7 +54,8 @@ const routes: Routes = [
     TimeboxNewComponent,
     TimeboxerComponent,
     TimerInputComponent,
-    PlayerComponent
+    PlayerComponent,
+    DurationPipe
   ],
   exports: [TimeboxerComponent]
 })

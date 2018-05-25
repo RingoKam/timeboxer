@@ -18,8 +18,8 @@ export class TimeboxListService {
     const ids = Object.keys(current)
       .sort()
       .reverse();
-    const id = ids[0] ? ids[0] + 1 : 0;
-    this.timeboxList.next({ ...current, ...{ id: timeboxer } });
+    const id = ids[0] ? parseInt(ids[0]) + 1 : 0;
+    this.timeboxList.next({ ...current, ...{ [id]: timeboxer } });
   }
 
   remove(id) {
@@ -30,7 +30,7 @@ export class TimeboxListService {
 
   update(id, timeboxer: TimeboxerModel) {
     const current = this.timeboxList.getValue();
-    current[id] = {...current[id], ...timeboxer};
-    this.timeboxList.next(current);
+    current[id] = timeboxer;
+    this.timeboxList.next({...{},...current});
   }
 }
