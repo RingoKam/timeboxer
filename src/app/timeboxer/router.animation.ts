@@ -6,11 +6,11 @@ import {
   animateChild,
   query,
   stagger,
-  transition
+  transition,
+  keyframes
 } from "@angular/animations";
 
 export const routerTransition = trigger("routerTransition", [
-
   transition("left => right", [
     /* order */
     /* 1 */ query(
@@ -65,6 +65,15 @@ export const routerTransition = trigger("routerTransition", [
         { optional: true }
       )
     ])
-  ])
+  ]),
 
+  transition("* => up", [
+    animate(
+      "0.3s",
+      keyframes([
+        style({ opacity: 0, transform: "translate3d(0, -100%, 0)", offset: 0 }),
+        style({ opacity: 1, transform: "translate3d(0, 0, 0)", offset: 1 })
+      ])
+    )
+  ])
 ]);
